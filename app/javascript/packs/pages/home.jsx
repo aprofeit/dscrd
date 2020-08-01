@@ -1,11 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 
 const Home = () => {
+  const [vanityUrl, setVanityUrl] = useState("");
+
   return (
     <Container>
-      <h1 className="mt-4">DSCRD is on its way!</h1>
+      <Row>
+        <Col>
+        <h1 className="mt-4">Make discord URLS great again</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form>
+            <Form.Group controlId="vanity_url">
+              <Form.Label>Desired vanity URL</Form.Label>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>https://dscrd.profeit.com/r/</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  placeholder="whatever-you-want"
+                  name="vanity_url"
+                  value={vanityUrl}
+                  onChange={(_e, value) => { setVanityUrl(value) }}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Form>
+        </Col>
+      </Row>
     </Container>
   )
 }
