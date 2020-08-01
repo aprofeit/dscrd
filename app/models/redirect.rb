@@ -3,6 +3,6 @@ class Redirect < ApplicationRecord
   validates :destination_url, presence: true
 
   def formatted_url
-    "https://discord.gg/#{destination_url}"
+    "https://dscrd.profeit.com/g/#{vanity_url}"
   end
 end

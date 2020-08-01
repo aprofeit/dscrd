@@ -6,7 +6,9 @@ const Home = () => {
   const [vanityUrl, setVanityUrl] = useState("");
   const [destinationUrl, setDestinationUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [doneSubmitting, setDoneSubmitting] = useState(false);
+  const [errorMessages, setErrorMessages] = useState("")
+  const [newLink, setNewLink] = useState(null)
+  const [buttonText, setButtonText] = useState('Create')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,9 +19,15 @@ const Home = () => {
         vanity_url: vanityUrl,
         destination_url: destinationUrl
       }
-    }).then(() =>  {
+    }).then((response) =>  {
+      setNewLink(response.data.redirect.vanity_url)
+      setErrorMessages(null)
+      setButtonText('Done')
+    }).catch((e) => {
+      console.log(e)
+      setErrorMessages(e.response.data.errors)
+
       setSubmitting(false)
-      setDoneSubmitting(true)
     })
   }
 
@@ -43,6 +51,7 @@ const Home = () => {
                   type="text"
                   placeholder="whatever-you-want"
                   name="redirect[vanity_url]"
+                  value = { vanityUrl }
                   onChange={e => {
                     const newValue = e.target.value
                     setVanityUrl(newValue)
@@ -60,6 +69,7 @@ const Home = () => {
                 <Form.Control
                   type="text"
                   name="redirect[destination_url]"
+                  value = {destinationUrl}
                   onChange={e => {
                     const newValue = e.target.value
                     setDestinationUrl(newValue) 
@@ -67,12 +77,26 @@ const Home = () => {
                 />
               </InputGroup>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Create
+            <Button
+              variant="primary" 
+              type="submit"
+              disabled={submitting}
+              onClick={handleSubmit}
+             >
+              { buttonText }
             </Button>
+            <span className="ml-3 text-warning">
+              {errorMessages}
+            </span>
           </Form>
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <h2 className="mt-3">{newLink && `Here's your lovely link: ${newLink}`}</h2>
+        </Col>
+      </Row>
+     
     </Container>
   )
 }

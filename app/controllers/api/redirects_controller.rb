@@ -6,9 +6,15 @@ class Api::RedirectsController < ApplicationController
     redirect.destination_url = redirect.destination_url.scan(/\w+/).last
 
     if redirect.save
-      head :created
+      render json: {
+        redirect: {
+          vanity_url: redirect.formatted_url
+        }
+      }
     else
-      head :unprocessable_entity
+      render json: {
+        errors: redirect.errors.full_messages.join(', ')
+      }, status: 422
     end
   end
 
