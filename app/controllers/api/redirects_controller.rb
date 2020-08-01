@@ -1,4 +1,5 @@
 class Api::RedirectsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :create
   def create
     redirect = Redirect.new(redirect_params)
     redirect.vanity_url = redirect.vanity_url.scan(/\w+/).first

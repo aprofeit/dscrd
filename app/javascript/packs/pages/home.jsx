@@ -1,14 +1,26 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 
 const Home = () => {
   const [vanityUrl, setVanityUrl] = useState("");
   const [destinationUrl, setDestinationUrl] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [doneSubmitting, setDoneSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(vanityUrl)
-    console.log(destinationUrl)
+
+    setSubmitting(true)
+    axios.post('/api/redirects', {
+      redirect: {
+        vanity_url: vanityUrl,
+        destination_url: destinationUrl
+      }
+    }).then(() =>  {
+      setSubmitting(false)
+      setDoneSubmitting(true)
+    })
   }
 
   return (
