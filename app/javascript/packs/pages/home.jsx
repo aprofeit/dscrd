@@ -45,7 +45,7 @@ const Home = () => {
               <Form.Label>Desired vanity URL</Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
-                  <InputGroup.Text>https://dscrd.profeit.com/r/</InputGroup.Text>
+                  <InputGroup.Text>https://dscrd.profeit.com/d/</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
