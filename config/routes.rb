@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   end
 
   get '/d/*vanity_url' => 'redirects#show'
+
+  root to: 'pages#home'
 end
