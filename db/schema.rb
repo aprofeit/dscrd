@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2020_08_01_103832) do
   enable_extension "plpgsql"
 
   create_table "redirects", force: :cascade do |t|
-    t.string "vanity_url"
-    t.string "destination_url"
+    t.string "vanity_url", null: false
+    t.string "destination_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["vanity_url"], name: "index_redirects_on_vanity_url", unique: true
