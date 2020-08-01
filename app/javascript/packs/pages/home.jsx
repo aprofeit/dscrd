@@ -82,6 +82,7 @@ const Home = () => {
               type="submit"
               disabled={submitting}
               onClick={handleSubmit}
+              className="mt-2"
              >
               { buttonText }
             </Button>
