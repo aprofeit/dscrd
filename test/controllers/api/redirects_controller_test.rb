@@ -24,4 +24,12 @@ class Api::RedirectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'sweet_url', redirect.vanity_url 
     assert_equal 'abc123', redirect.destination_url
   end
+
+  test 'creating a redirect with a blank destination_url' do
+    assert_no_difference 'Redirect.count' do
+      post '/api/redirects', params: { redirect: { vanity_url: 'sweet_url', destination_url: '' } }
+    end
+
+    assert_response 422
+  end
 end
